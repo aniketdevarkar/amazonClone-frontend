@@ -3,11 +3,12 @@ import "./Header.css";
 import { Link, useHistory } from "react-router-dom";
 import { TiShoppingCart } from "react-icons/ti";
 import { AiOutlineSearch } from "react-icons/ai";
+import { RiAddCircleFill } from "react-icons/ri";
+import { useStateValue } from "./StateProvider";
 import Navbar from "react-bootstrap/Navbar";
 
-import { useStateValue } from "./StateProvider";
 import { WrapperContext } from "../loginAndRegister/WrapperRoute";
-function Header() {
+function HeaderBusiness() {
   const [{ basket }, dispatch] = useStateValue();
   const { user, logout } = useContext(WrapperContext);
 
@@ -16,7 +17,7 @@ function Header() {
   return (
     <Navbar expand="md" className="header">
       {/* logo on the left */}
-      <Link to="/user/products">
+      <Link to="/admin/products">
         <img
           className="header__logo"
           src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
@@ -31,7 +32,6 @@ function Header() {
           <AiOutlineSearch className="header__searchIcon" />
         </div>
         <div className="header__nav">
-          {/* 1 link */}
           <button onClick={logout} className="header__button header__link">
             <Link to="/" className="header__link">
               <div className="header__option">
@@ -58,7 +58,18 @@ function Header() {
               </div>
             </Link>
           }
+
+          <Link to="/AddProduct" className="header__link">
+            <div className="header__option">
+              {/* shopping basket icon  */}
+              <RiAddCircleFill className="header__add" />
+              {/* Number of Icons in the basket */}
+              <span className="header__optionLineTwo ">Add</span>
+            </div>
+          </Link>
+
           {/* Basket icon with number */}
+
           <Link to="/checkout" className="header__link">
             <div className="header__optionBasket">
               {/* shopping basket icon  */}
@@ -75,4 +86,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderBusiness;

@@ -1,13 +1,31 @@
 export const initialState = {
   basket: [],
+  user: [],
+  token: null,
+  isLoggedIn: false,
 };
 
 export const getBasketTotal = (basket) =>
   basket?.reduce((amount, item) => item.price + amount, 0);
 
+export function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
 function reducer(state, action) {
-  console.log(action);
   switch (action.type) {
+    case "SET_USER":
+      return {
+        user: [
+          // ...action.user,
+          action.user.firstName,
+          action.user.lastName,
+          action.user.role,
+        ],
+        token: action.token,
+        isLoggedIn: action.isLoggedIn,
+      };
     case "ADD_TO_BASKET":
       return {
         ...state,

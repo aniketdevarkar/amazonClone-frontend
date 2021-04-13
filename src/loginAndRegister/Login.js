@@ -1,22 +1,27 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-// import CenteredContainer from "./CenteredContainer";
 
 import { login } from "../apicalls";
 import "./Login.css";
-function Login() {
+function Login({ handleLogin, history }) {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(emailRef.current.value, passwordRef.current.value);
     try {
       const log = await login(
         emailRef.current.value,
         passwordRef.current.value
       );
-      console.log(log);
+
+      handleLogin(log.data, log.token);
+      if (log.data.role) {
+        history.push(`/admin/products`);
+      } else {
+        history.push(`/user/products`);
+      }
     } catch (error) {
+      alert("Wrong user Credentials");
       console.log(error);
     }
   };
@@ -32,11 +37,11 @@ function Login() {
       </Link>
       <div className="login__container">
         <form>
-          <h1>sign in</h1>
+          <h1>Sign-In</h1>
           <h5>E-mail</h5>
-          <input type="email" ref={emailRef} />
+          <input type="email" ref={emailRef} required />
           <h5>password</h5>
-          <input type="password" ref={passwordRef} />
+          <input type="password" ref={passwordRef} required />
           <button
             onClick={handleSubmit}
             type="submit"
@@ -55,6 +60,7 @@ function Login() {
             Create your Amazon Account
           </button>
         </Link>
+        <Link to="/forgot-password">Forgot Password ?</Link>
       </div>
     </div>
   );

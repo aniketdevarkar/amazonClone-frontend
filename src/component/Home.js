@@ -1,66 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import { getAllProducts } from "../apicalls";
 import "./Home.css";
 import Product from "./Product";
-function Home() {
-  return (
-    <div className="home">
-      <img
-        src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
-        alt="amazon banner"
-        className="home__image"
-      />
-      {/* product id, title,price,rating,image */}
-      <div className="home__row">
-        <Product
-          id="12321341"
-          title="uiasdja"
-          price={11.95}
-          rating={5}
-          image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-        />
-        <Product
-          id="12321341"
-          title="uiasdja"
-          price={11.95}
-          rating={5}
-          image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-        />
-      </div>
-      <div className="home__row">
-        <Product
-          id="12321341"
-          title="uiasdja"
-          price={11.95}
-          rating={5}
-          image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-        />
-        <Product
-          id="12321341"
-          title="uiasdja"
-          price={11.95}
-          rating={5}
-          image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-        />
-        <Product
-          id="12321341"
-          title="uiasdja"
-          price={11.95}
-          rating={5}
-          image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-        />
-      </div>
-      <div className="home__row">
-        <Product
-          id="3"
-          title="we"
-          price={21.25}
-          rating={4}
-          image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-        />
-      </div>
+import { Card, Col, Container, Row } from "react-bootstrap";
 
-      {/* product */}
-    </div>
+function Home() {
+  const [allProducts, setAllProducts] = useState([]);
+  useEffect(async () => {
+    const data = await getAllProducts();
+    setAllProducts(data);
+  }, []);
+
+  return (
+    <Container fluid>
+      <Row>
+        <img
+          src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
+          alt="amazon banner"
+          className="home__image"
+        />
+        {/* product id, title,price,rating,image */}
+      </Row>
+      <Row>
+        {allProducts.map((product) => {
+          return (
+            <Col xs={12} sm={6} md={4} lg={3} mb={4} className="mb-3">
+              <Product
+                key={product._id}
+                id={product._id}
+                title={product.productName}
+                price={parseFloat(product.productPrice)}
+                image={product.image_url}
+                description={product.description}
+                seller={product.seller}
+              />
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
   );
 }
 export default Home;

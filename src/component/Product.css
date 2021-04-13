@@ -20,7 +20,11 @@
   margin-bottom: 15px;
 }
 .product__price {
-  margin-top: 5px;
+  font-size: 20px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
 }
 .product > img {
   max-height: 200px;
@@ -32,4 +36,15 @@
   background-color: #f0c14b;
   border: 1px solid;
   border-color: #a88734 #9c7e31 #846a29;
+}
+.button {
+  background-color: #f0c14b !important;
+  border: 1px solid !important;
+  border-color: #a88734 #9c7e31 #846a29 !important;
+}
+.image {
+  height: 300px !important;
+  width: 100% !important;
+  /* object-fit: contain;
+  margin-bottom: 15px; */
 }

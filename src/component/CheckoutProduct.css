@@ -26,3 +26,9 @@
   margin-top: 10px;
   color: #111;
 }
+@media screen and (max-width: 468px) {
+  .checkoutProduct {
+    flex-direction: column;
+    border: 1px solid darkgray;
+  }
+}

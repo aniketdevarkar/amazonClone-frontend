@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
+import React, { useRef } from "react";
 import "./Header.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TiShoppingCart } from "react-icons/ti";
 import { AiOutlineSearch } from "react-icons/ai";
+import { getProduct } from "../apicalls";
 import Navbar from "react-bootstrap/Navbar";
 
-import { useStateValue } from "./StateProvider";
-import { WrapperContext } from "../loginAndRegister/WrapperRoute";
-function Header() {
-  const [{ basket }, dispatch] = useStateValue();
-  const { user, logout } = useContext(WrapperContext);
-
-  const history = useHistory();
-
+function HeaderHome() {
+  const product = useRef("");
+  const search = async () => {
+    try {
+      const data = await getProduct(product.current.value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Navbar expand="md" className="header">
       {/* logo on the left */}
-      <Link to="/user/products">
+      <Link to="/">
         <img
           className="header__logo"
           src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
@@ -27,23 +29,19 @@ function Header() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <div className="header_search">
-          <input type="text" className="header__searchInput" />
-          <AiOutlineSearch className="header__searchIcon" />
+          <input type="text" className="header__searchInput" ref={product} />
+          <AiOutlineSearch className="header__searchIcon" onClick={search} />
         </div>
         <div className="header__nav">
           {/* 1 link */}
-          <button onClick={logout} className="header__button header__link">
-            <Link to="/" className="header__link">
-              <div className="header__option">
-                <span className="header__optionLineOne">
-                  Hello {user.firstName}
-                </span>
-                <span className="header__optionLineTwo">sign out</span>
-              </div>
-            </Link>
-          </button>
+          <Link to="/login" className="header__link">
+            <div className="header__option">
+              <span className="header__optionLineOne">Hello</span>
+              <span className="header__optionLineTwo">sign in</span>
+            </div>
+          </Link>
           {/* 2 link */}
-          <Link className="header__link">
+          <Link to="/login" className="header__link">
             <div className="header__option">
               <span className="header__optionLineOne">Returns</span>
               <span className="header__optionLineTwo">Orders</span>
@@ -51,7 +49,7 @@ function Header() {
           </Link>
           {/* 3 link */}
           {
-            <Link className="header__link">
+            <Link to="/login" className="header__link">
               <div className="header__option">
                 <span className="header__optionLineOne">Your</span>
                 <span className="header__optionLineTwo">Prime</span>
@@ -59,14 +57,12 @@ function Header() {
             </Link>
           }
           {/* Basket icon with number */}
-          <Link to="/checkout" className="header__link">
+          <Link to="/login" className="header__link">
             <div className="header__optionBasket">
               {/* shopping basket icon  */}
               <TiShoppingCart className="header__basket" />
               {/* Number of Icons in the basket */}
-              <span className="header__optionLinkTwo header__basketCount">
-                {basket?.length}
-              </span>
+              <span className="header__optionLinkTwo header__basketCount"></span>
             </div>
           </Link>
         </div>
@@ -75,4 +71,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderHome;
