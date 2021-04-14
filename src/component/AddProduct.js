@@ -10,16 +10,20 @@ function AddProduct() {
   const productPrice = useRef("");
   const { token } = useContext(WrapperContext);
   const submit = async (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const result = await addProduct({
-      image: file,
-      description: description.current.value,
-      productName: productName.current.value,
-      productPrice: productPrice.current.value,
-      token: token,
-    });
-    alert(result.message);
+      const result = await addProduct({
+        image: file,
+        description: description.current.value,
+        productName: productName.current.value,
+        productPrice: productPrice.current.value,
+        token: token,
+      });
+      alert(result.message);
+    } catch (error) {
+      alert("Try again: ", error);
+    }
   };
 
   const fileSelected = (event) => {
