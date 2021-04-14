@@ -26,7 +26,7 @@ function HeaderHome() {
         />
       </Link>
       {/* search box */}
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" className="nav__toggle" />
       <Navbar.Collapse id="basic-navbar-nav">
         <div className="header_search">
           <input type="text" className="header__searchInput" ref={product} />

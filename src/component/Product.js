@@ -31,7 +31,7 @@ function Product({ id, title, image, price, description, seller }) {
   };
 
   return (
-    <div>
+    <div className="product1">
       <Card>
         <Card.Img
           title={`Description: ${description}`}

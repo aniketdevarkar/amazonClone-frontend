@@ -47,52 +47,49 @@ function App() {
     localStorage.setItem("auth_token", token);
   };
   return (
-    <Router>
-      <WrapperContext.Provider
-        value={{
-          user,
-          token,
-          isLoggedIn,
-          logout,
-          search,
-          removeSearch,
-        }}
-      >
-        <div className="app">
-          <Container fluid>
-            <Switch>
-              <Route
-                path="/register/confirmation/:token"
-                component={Confirmation}
-              />
-              <UserRoute exact path="/checkout" component={Checkout} />
-              {/* <Route exact path="/" render={() => <Redirect to="/login" />} /> */}
-              <WrapperRoute
-                path="/login"
-                render={(props) => (
-                  <Login {...props} handleLogin={handleLogin} />
-                )}
-              />
-              <ProtectRoute
-                path="/admin/products"
-                component={BusinessAccount}
-              />
-              <AdminRoute path="/AddProduct" component={AddProduct} />
-              <ProtectRoute path="/user/products" component={UserAccount} />
-              <Route exact path="/register" component={Register} />
-              <Route path="/reset-password/:token" component={ResetPassword} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-              <Route path="/">
-                {/* <button onClick={showUser}>show user</button> */}
-                <HeaderHome />
-                <Home />
-                <Footer />
-              </Route>
-            </Switch>
-          </Container>
-        </div>
-      </WrapperContext.Provider>
-    </Router>
+    // <Container fluid>
+    <Container fluid className="app">
+      <Router>
+        <WrapperContext.Provider
+          value={{
+            user,
+            token,
+            isLoggedIn,
+            logout,
+            search,
+            removeSearch,
+          }}
+        >
+          {/* <div className="app"> */}
+          <Switch>
+            <Route
+              path="/register/confirmation/:token"
+              component={Confirmation}
+            />
+            <UserRoute exact path="/checkout" component={Checkout} />
+            {/* <Route exact path="/" render={() => <Redirect to="/login" />} /> */}
+            <WrapperRoute
+              path="/login"
+              render={(props) => <Login {...props} handleLogin={handleLogin} />}
+            />
+            <ProtectRoute path="/admin/products" component={BusinessAccount} />
+            <AdminRoute path="/AddProduct" component={AddProduct} />
+            <ProtectRoute path="/user/products" component={UserAccount} />
+            <Route exact path="/register" component={Register} />
+            <Route path="/reset-password/:token" component={ResetPassword} />
+            <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/">
+              {/* <button onClick={showUser}>show user</button> */}
+              <HeaderHome />
+              <Home />
+              <Footer />
+            </Route>
+          </Switch>
+          {/* </div> */}
+        </WrapperContext.Provider>
+      </Router>
+    </Container>
+    // </Container>
   );
 }
 

@@ -1,5 +1,7 @@
 const axios = require("axios");
 const base_url = "https://amazon-clone-back.herokuapp.com";
+// const base_url = "http://localhost:8080";
+
 export const register = (email, password, firstName, lastName, role) => {
   return axios
     .post(`${base_url}/register`, {

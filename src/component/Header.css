@@ -13,6 +13,10 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+.nav__toggle {
+  background-color: white !important;
+}
+
 .header__button {
   /* text-decoration: none; */
   color: white;
