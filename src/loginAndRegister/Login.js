@@ -16,13 +16,13 @@ function Login({ handleLogin, history }) {
 
       handleLogin(log.data, log.token);
       if (log.data.role) {
-        history.push(`/admin/products`);
+        return history.push(`/admin/products`);
       } else {
-        history.push(`/user/products`);
+        return history.push(`/user/products`);
       }
     } catch (error) {
-      alert("Wrong user Credentials");
       console.log(error);
+      return alert("Wrong user Credentials");
     }
   };
 

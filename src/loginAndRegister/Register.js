@@ -24,11 +24,11 @@ function Signup() {
         userRoleRef.current.checked
         //role:0
       );
-      alert(regist.message);
       console.log("message", regist);
+      return alert(regist.message);
     } catch (error) {
-      alert("account with this email already exist");
       console.log("error>>>>", error);
+      return alert("account with this email already exist");
     }
   };
 
